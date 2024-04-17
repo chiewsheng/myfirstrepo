@@ -1,0 +1,7 @@
+firstVM/.terraform/
+count/.terraform/
+count_example_2/.terraform/
+firstVM/.terraform/
+firstVPC/.terraform/
+for_each/.terraform/
+module_example/vpc1/.terraform/

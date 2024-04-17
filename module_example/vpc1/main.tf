@@ -1,0 +1,59 @@
+module "vpc1" {
+  source = "../vpc_module"
+
+  cidr_block                = "20.0.0.0/16"
+  vpc_name                  = "chiewshengVPC1"
+  public_subnet_name        = "public_subnet"
+  private_subnet_name       = "private_subnet"
+  public_subnet_cidr_block  = "20.0.1.0/24"
+  private_subnet_cidr_block = "20.0.2.0/24"
+  availability_zone = {
+    private_subnet_az = "us-east-2b"
+    public_subnet_az  = "us-east-2a"
+  }
+
+  ami_image     = "ami-0b8b44ec9a8f90422"
+  instance_type = "t2.micro"
+
+  subnets = {
+    public_subnet = {
+      cidr_block        = "20.0.1.0/24"
+      availability_zone = "us-east-1b"
+    }
+
+    private_subnet = {
+      cidr_block        = "20.0.2.0/24"
+      availability_zone = "us-east-1a"
+    }
+  }
+
+  inbound_rule = {
+    allow_http_traffic = {
+
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    allow_ssh_traffic = {
+
+
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+
+    }
+
+    allow_https_traffic = {
+
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+
+    }
+  }
+}
+
